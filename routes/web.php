@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\SentimenController;
+use App\Http\Controllers\PreprocessingController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SentimentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +16,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group([
+    'middleware' => [],
+    'prefix' => 'dashboard'
+], function() {
 
-Route::get('/tes-sentimen', [SentimenController::class, 'sentimen']);
+    Route::get('/', [SentimentController::class, 'sentimen'])->name('dashboard');
+
+    Route::group([
+        'prefix' => 'resource'
+    ], function () {
+        Route::get('/', [ResourceController::class, 'index'])->name('resource.index');
+        Route::post('/simpan', [ResourceController::class, 'simpan'])->name('resource.simpan');
+        Route::post('/import', [ResourceController::class, 'import'])->name('resource.import');
+        Route::get('/ubah', [ResourceController::class, 'ubah'])->name('resource.ubah');
+        Route::post('/ubah', [ResourceController::class, 'perbarui'])->name('resource.perbarui');
+        Route::post('/hapus', [ResourceController::class, 'hapus'])->name('resource.hapus');
+        Route::post('/truncate', [ResourceController::class, 'truncate'])->name('resource.truncate');
+    });
+
+    Route::group([
+        'prefix' => 'preprocessing'
+    ], function () {
+        Route::get('/', [PreprocessingController::class, 'index'])->name('preprocessing.index');
+        Route::post('/preprocessing', [PreprocessingController::class, 'preprocessing'])->name('preprocessing.preprocessing');
+    });
+
+    Route::group([
+        'prefix' => 'sentimentAnalysis'
+    ], function () {
+        Route::get('/', [SentimentController::class, 'index'])->name('sentimentAnalysis.index');
+        Route::post('/sentimentAnalysis', [SentimentController::class, 'sentimentAnalysis'])->name('sentimentAnalysis.sentimentAnalysis');
+    });
+});

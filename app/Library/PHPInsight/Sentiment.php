@@ -317,7 +317,7 @@ class Sentiment {
 		$string = str_replace("\r\n", " ", $string);
 
 		//Clean the string so is free from accents
-		$string = $this->_cleanString($string);
+		// $string = $this->_cleanString($string);
 
 		//Make all texts lowercase as the database of words in in lowercase
 		$string = strtolower($string);
