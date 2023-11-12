@@ -6,6 +6,7 @@ use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\Imports\ResourceImport;
 use App\Models\Preprocessing;
+use App\Models\Sentiment;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -45,6 +46,7 @@ class ResourceController extends Controller
         // Truncate Data
         Resource::truncate();
         Preprocessing::truncate();
+        Sentiment::truncate();
 
         // menangkap file excel
         $file = $request->file('import_data');

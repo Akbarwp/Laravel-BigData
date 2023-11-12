@@ -66,8 +66,8 @@ class SentimentController extends Controller
 
         if ($data2 != null) {
             foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->tokenize);
-                $category = $this->sentiment->categories($item->tokenize);
+                $scores = $this->sentiment->score($item->stemming);
+                $category = $this->sentiment->categories($item->stemming);
                 if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
                     $category = 'netral';
                 }
@@ -81,8 +81,8 @@ class SentimentController extends Controller
             }
         } else {
             foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->tokenize);
-                $category = $this->sentiment->categories($item->tokenize);
+                $scores = $this->sentiment->score($item->stemming);
+                $category = $this->sentiment->categories($item->stemming);
                 if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
                     $category = 'netral';
                 }
