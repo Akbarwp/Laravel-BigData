@@ -62,41 +62,24 @@ class SentimentController extends Controller
     public function sentimentAnalysis()
     {
         $data = Preprocessing::orderBy('resource_id', 'asc')->get();
-        $data2 = Sentiment::first();
+        Sentiment::truncate();
 
-        if ($data2 != null) {
-            foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->stemming);
-                $category = $this->sentiment->categories($item->stemming);
-                if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
-                    $category = 'netral';
-                }
-
-                Sentiment::where('resource_id', $item->resource_id)->update([
-                    'positive' => $scores['positif'],
-                    'netral' => $scores['netral'],
-                    'negative' => $scores['negatif'],
-                    'sentiment' => $category,
-                ]);
+        foreach ($data as $item) {
+            $scores = $this->sentiment->score($item->stemming);
+            $category = $this->sentiment->categories($item->stemming);
+            if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
+                $category = 'netral';
             }
-        } else {
-            foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->stemming);
-                $category = $this->sentiment->categories($item->stemming);
-                if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
-                    $category = 'netral';
-                }
 
-                Sentiment::insert([
-                    'positive' => $scores['positif'],
-                    'netral' => $scores['netral'],
-                    'negative' => $scores['negatif'],
-                    'sentiment' => $category,
-                    'resource_id' => $item->resource_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-            }
+            Sentiment::insert([
+                'positive' => $scores['positif'],
+                'netral' => $scores['netral'],
+                'negative' => $scores['negatif'],
+                'sentiment' => $category,
+                'resource_id' => $item->resource_id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
         }
     }
 }

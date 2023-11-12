@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\ResourceImport;
 use App\Models\Preprocessing;
 use App\Models\Sentiment;
+use App\Models\Vectorizer;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -31,7 +32,14 @@ class ResourceController extends Controller
             'text' => 'required|string',
         ]);
 
-        Resource::create($validated);
+        $insert = Resource::create($validated);
+
+        Preprocessing::insert([
+            'case_folding' => strtolower($insert->text),
+            'resource_id' => $insert->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
         return redirect('dashboard/resource')->with('berhasil', "Data berhasil disimpan!");
     }
@@ -47,6 +55,7 @@ class ResourceController extends Controller
         Resource::truncate();
         Preprocessing::truncate();
         Sentiment::truncate();
+        Vectorizer::truncate();
 
         // menangkap file excel
         $file = $request->file('import_data');
@@ -92,6 +101,8 @@ class ResourceController extends Controller
 
     public function hapus(Request $request)
     {
+        Sentiment::where('resource_id', $request->id)->delete();
+        Preprocessing::where('resource_id', $request->id)->delete();
         Resource::where('id', $request->id)->delete();
         return redirect('dashboard/resource');
     }
@@ -99,6 +110,9 @@ class ResourceController extends Controller
     public function truncate()
     {
         Resource::truncate();
+        Preprocessing::truncate();
+        Sentiment::truncate();
+        Vectorizer::truncate();
         return redirect('dashboard/resource');
     }
 }

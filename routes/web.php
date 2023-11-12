@@ -3,6 +3,7 @@
 use App\Http\Controllers\PreprocessingController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SentimentController;
+use App\Http\Controllers\VectorizerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,5 +48,12 @@ Route::group([
     ], function () {
         Route::get('/', [SentimentController::class, 'index'])->name('sentimentAnalysis.index');
         Route::post('/sentimentAnalysis', [SentimentController::class, 'sentimentAnalysis'])->name('sentimentAnalysis.sentimentAnalysis');
+    });
+
+    Route::group([
+        'prefix' => 'vectorizer'
+    ], function () {
+        Route::get('/', [VectorizerController::class, 'index'])->name('vectorizer.index');
+        Route::post('/vectorizer', [VectorizerController::class, 'vectorizer'])->name('vectorizer.vectorizer');
     });
 });

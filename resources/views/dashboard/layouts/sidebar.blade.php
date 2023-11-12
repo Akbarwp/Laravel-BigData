@@ -47,6 +47,15 @@
                     <span class="ml-4">Sentiment Analysis</span>
                 </a>
             </li>
+            <li class="relative px-6 pt-3">
+                @if (Request::is('dashboard/vectorizer'))
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                @endif
+                <a class="{{ Request::is('dashboard/vectorizer') ? 'font-semibold text-purple-600 dark:text-purple-300' : 'text-gray-500 dark:text-gray-100' }} inline-flex items-center w-full text-sm transition-colors duration-150 hover:text-purple-600 dark:hover:text-purple-300" href="{{ route('vectorizer.index') }}">
+                    <i class="ri-command-line text-lg"></i>
+                    <span class="ml-4">Vectorizer</span>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>
@@ -104,6 +113,15 @@
                 <a class="{{ Request::is('dashboard/sentimentAnalysis') ? 'font-semibold text-purple-600 dark:text-purple-300' : 'text-gray-500 dark:text-gray-100' }} inline-flex items-center w-full text-sm transition-colors duration-150 hover:text-purple-600 dark:hover:text-purple-300" href="{{ route('sentimentAnalysis.index') }}">
                     <i class="ri-search-eye-line text-lg"></i>
                     <span class="ml-4">Sentiment Analysis</span>
+                </a>
+            </li>
+            <li class="relative px-6 pt-3">
+                @if (Request::is('dashboard/vectorizer'))
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                @endif
+                <a class="{{ Request::is('dashboard/vectorizer') ? 'font-semibold text-purple-600 dark:text-purple-300' : 'text-gray-500 dark:text-gray-100' }} inline-flex items-center w-full text-sm transition-colors duration-150 hover:text-purple-600 dark:hover:text-purple-300" href="{{ route('vectorizer.index') }}">
+                    <i class="ri-command-line text-lg"></i>
+                    <span class="ml-4">Vectorizer</span>
                 </a>
             </li>
         </ul>

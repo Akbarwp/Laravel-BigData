@@ -40,18 +40,25 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('data_testing', function (Blueprint $table) {
-            $table->id();
-            $table->text('text');
-            $table->text('preprocessing')->nullable();
-            $table->string('sentiment');
-            $table->timestamps();
-        });
+        // Schema::create('data_testing', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->text('text');
+        //     $table->text('preprocessing')->nullable();
+        //     $table->string('sentiment');
+        //     $table->timestamps();
+        // });
 
-        Schema::create('naive_bayes', function (Blueprint $table) {
+        // Schema::create('naive_bayes', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('data_testing_id');
+        //     $table->string('result');
+        //     $table->timestamps();
+        // });
+
+        Schema::create('vectorizer', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('data_testing_id');
-            $table->string('result');
+            $table->string('word');
+            $table->double('total');
             $table->timestamps();
         });
     }
@@ -63,8 +70,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('naive_bayes');
-        Schema::dropIfExists('data_testing');
+        Schema::dropIfExists('vectorizer');
+        // Schema::dropIfExists('naive_bayes');
+        // Schema::dropIfExists('data_testing');
         Schema::dropIfExists('sentiment_analysis');
         Schema::dropIfExists('preprocessing');
         Schema::dropIfExists('resource');
