@@ -65,7 +65,7 @@ class Sentiment {
 	 * Classification of opinions
 	 * @var array
 	 */
-	private $classes = array('positif', 'negatif');
+	private $classes = array('positif', 'negatif', 'netral');
 
 	/**
 	 * Token score per class
@@ -73,7 +73,8 @@ class Sentiment {
 	 */
 	private $classTokCounts = array(
 		'positif' => 0,
-		'negatif' => 0
+		'negatif' => 0,
+		'netral' => 0
 	);
 
 	/**
@@ -82,7 +83,8 @@ class Sentiment {
 	 */
 	private $classDocCounts = array(
 		'positif' => 0,
-		'negatif' => 0
+		'negatif' => 0,
+		'netral' => 0
 	);
 
 	/**
@@ -102,8 +104,9 @@ class Sentiment {
 	 * @var array
 	 */
 	private $prior = array(
-		'positif' => 0.5,
-		'negatif' => 0.5
+		'positif' => 0.333333333333,
+		'negatif' => 0.333333333333,
+		'netral' => 0.333333333334
 	);
 
 	/**

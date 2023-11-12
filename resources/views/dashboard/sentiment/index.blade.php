@@ -31,6 +31,7 @@
                                     <th scope="col" class="px-4 py-3">Netral</th>
                                     <th scope="col" class="px-4 py-3">Negative</th>
                                     <th scope="col" class="px-4 py-3">Sentiment</th>
+                                    <th scope="col" class="px-4 py-3">Label</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,13 @@
                                                 <div class="badge badge-neutral">{{ $item->sentiment }}</div>
                                             @elseif ($item->sentiment == "negatif")
                                                 <div class="badge badge-error">{{ $item->sentiment }}</div>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            @if ($item->label == "positive")
+                                                <div class="badge badge-success">{{ $item->label }}</div>
+                                            @elseif ($item->label == "negative")
+                                                <div class="badge badge-error">{{ $item->label }}</div>
                                             @endif
                                         </td>
                                     </tr>

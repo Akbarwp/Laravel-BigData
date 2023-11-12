@@ -18,5 +18,6 @@ class Resource extends Model
         "acara_tv",
         "jumlah_retweet",
         "text",
+        "label",
     ];
 }

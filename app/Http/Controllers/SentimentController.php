@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Sentiment;
+use Phpml\Metric\Accuracy;
 use App\Models\Preprocessing;
 
 class SentimentController extends Controller
@@ -41,7 +42,7 @@ class SentimentController extends Controller
     {
         $judul = "Sentiment Analysis";
         $data = Sentiment::join('resource as r', 'r.id', '=', 'sentiment_analysis.resource_id')
-        ->select('sentiment_analysis.*', 'r.text')
+        ->select('sentiment_analysis.*', 'r.text', 'r.label')
         ->orderBy('r.id', 'asc')->get();
 
         $sentimen = Sentiment::all();
@@ -51,6 +52,26 @@ class SentimentController extends Controller
             'netral' => $sentimen->where('sentiment', 'netral')->count(),
             'negative' => $sentimen->where('sentiment', 'negatif')->count()
         ];
+
+        // $actualLabels = [];
+        // $predictedLabels = [];
+        // foreach ($data as $item) {
+        //     $actualLabels[] = $item->label;
+
+        //     if ($item->sentiment == "positif") {
+        //         $predictedLabels[] = "positive";
+
+        //     } elseif ($item->sentiment == "netral") {
+        //         $predictedLabels[] = "netral";
+
+        //     } elseif ($item->sentiment == "negatif") {
+        //         $predictedLabels[] = "negative";
+        //     }
+        // }
+
+        // $akurasi = Accuracy::score($actualLabels, $predictedLabels);
+        // $hasilSama = Accuracy::score($actualLabels, $predictedLabels, false);
+        // dd($akurasi, $hasilSama);
 
         return view('dashboard.sentiment.index', [
             "judul" => $judul,
@@ -64,16 +85,32 @@ class SentimentController extends Controller
         $data = Preprocessing::orderBy('resource_id', 'asc')->get();
         Sentiment::truncate();
 
+        //? Kalua Ada Netral
+        // foreach ($data as $item) {
+        //     $scores = $this->sentiment->score($item->stemming);
+        //     $category = $this->sentiment->categories($item->stemming);
+        //     if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
+        //         $category = 'netral';
+        //     }
+
+        //     Sentiment::insert([
+        //         'positive' => $scores['positif'],
+        //         'netral' => $scores['netral'],
+        //         'negative' => $scores['negatif'],
+        //         'sentiment' => $category,
+        //         'resource_id' => $item->resource_id,
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now(),
+        //     ]);
+        // }
+
+        //? Kalua Tidak Ada Netral
         foreach ($data as $item) {
             $scores = $this->sentiment->score($item->stemming);
             $category = $this->sentiment->categories($item->stemming);
-            if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
-                $category = 'netral';
-            }
 
             Sentiment::insert([
                 'positive' => $scores['positif'],
-                'netral' => $scores['netral'],
                 'negative' => $scores['negatif'],
                 'sentiment' => $category,
                 'resource_id' => $item->resource_id,

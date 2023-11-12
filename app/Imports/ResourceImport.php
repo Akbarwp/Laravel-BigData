@@ -21,6 +21,7 @@ class ResourceImport implements ToModel, WithStartRow
             'acara_tv' => $row[2],
             'jumlah_retweet' => $row[3],
             'text' => $row[4],
+            'label' => $row[1],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

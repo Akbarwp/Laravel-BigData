@@ -42,6 +42,7 @@
                                     <th scope="col" class="px-4 py-3">Acara TV</th>
                                     <th scope="col" class="px-4 py-3">Jumlah Retweet</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Tweet</th>
+                                    <th scope="col" class="px-4 py-3 max-w-xs">Label</th>
                                     <th scope="col" class="px-4 py-3">Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                         <td class="px-4 py-3">{{ $item->acara_tv }}</td>
                                         <td class="px-4 py-3">{{ $item->jumlah_retweet }}</td>
                                         <td class="px-4 py-3">{{ $item->text }}</td>
+                                        <td class="px-4 py-3">{{ $item->label }}</td>
                                         <td class="px-4 py-3">
                                             <label for="edit_button" class="btn btn-sm btn-warning text-white" onclick="return edit_button('{{ $item->id }}')">
                                                 <i class="ri-pencil-line"></i>

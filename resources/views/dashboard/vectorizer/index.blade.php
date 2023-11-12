@@ -25,15 +25,13 @@
                         <table id="tabel_data" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 stripe hover" style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-4 py-3">No.</th>
                                     <th scope="col" class="px-4 py-3">Word</th>
                                     <th scope="col" class="px-4 py-3">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $value => $item)
+                                @foreach ($data as $item)
                                     <tr class="border-b dark:border-gray-700">
-                                        <td class="px-4 py-3">{{ $value+1 }}</td>
                                         <td class="px-4 py-3">{{ $item->word }}</td>
                                         <td class="px-4 py-3">{{ $item->total }}</td>
                                     </tr>
@@ -52,7 +50,7 @@
         $(document).ready(function() {
             $('#tabel_data').DataTable({
                 // responsive: true,
-                order: [],
+                order: [1],
             })
             .columns.adjust()
             .responsive.recalc();

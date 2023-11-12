@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('acara_tv');
             $table->integer('jumlah_retweet');
             $table->text('text');
+            $table->string('label');
             $table->timestamps();
         });
 
@@ -33,7 +34,7 @@ return new class extends Migration
         Schema::create('sentiment_analysis', function (Blueprint $table) {
             $table->id();
             $table->double('positive');
-            $table->double('netral');
+            // $table->double('netral');
             $table->double('negative');
             $table->string('sentiment');
             $table->foreignId('resource_id');
