@@ -56,6 +56,65 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden mt-10">
+                    <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                        <div class="flex-auto p-4">
+                            <div class="py-4 pr-1 mb-4 bg-gradient-to-tl from-gray-900 to-slate-800 rounded-xl">
+                                <div>
+                                    <canvas id="chart-bars" height="170"></canvas>
+                                </div>
+                            </div>
+                            <h6 class="mt-6 mb-0 ml-2">Perbandingan Hasil Sentiment Analysis</h6>
+                            <p class="ml-2 leading-normal text-sm flex flex-col">
+                                <span class="font-semibold">
+                                    X <i class="ri-arrow-right-line"></i> Sentiment,
+                                    Y <i class="ri-arrow-right-line"></i> Jumlah Data
+                                </span>
+                            </p>
+                            <div class="w-full px-6 mx-auto max-w-screen-2xl rounded-xl">
+                                <div class="flex flex-wrap mt-0 -mx-3">
+                                    @foreach ($sentiment as $value => $item)
+                                        <div class="flex-none w-1/4 max-w-full py-4 pl-0 pr-3 mt-0">
+                                            <div class="flex mb-2">
+                                                <div class="flex items-center justify-center w-5 h-5 mr-2 text-center bg-center rounded fill-current shadow-soft-2xl bg-gradient-to-tl from-purple-700 to-pink-500 text-neutral-900">
+                                                    <i class="ri-table-fill text-white text-sm"></i>
+                                                </div>
+                                                <p class="mt-1 mb-0 leading-tight text-xs">Sentiment
+                                                    @if ($value == "positive")
+                                                        <span class="font-bold text-success">{{ $value }}</span>:
+                                                    @elseif ($value == "netral")
+                                                        <span class="font-bold text-neutral">{{ $value }}</span>:
+                                                    @elseif ($value == "negative")
+                                                        <span class="font-bold text-error">{{ $value }}</span>:
+                                                    @endif
+                                                    <span class="font-semibold">{{ $item }}</span>
+                                                    data
+                                                </p>
+                                            </div>
+                                            <h4 class="font-bold">{{ $item }}</h4>
+                                            <div class="text-xs h-0.75 flex w-3/4 overflow-visible rounded-lg bg-gray-200">
+                                                <progress class="progress progress-secondary w-56" value="{{ $item }}" max="{{ $data->count() }}"></progress>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden mt-10">
+                    <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+                        <div class="flex-auto p-4">
+                            <div class="py-4 pr-1 mb-4 bg-gradient-to-tl from-gray-100 to-slate-50 rounded-xl">
+                                <div>
+                                    <canvas id="chart-pie" height="500"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -145,5 +204,115 @@
                 }
             })
         }
+    </script>
+
+    <script>
+        let ctx = document.getElementById("chart-bars").getContext("2d");
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Positive", "Netral", "Negative"],
+                datasets: [
+                {
+                    label: "Jumlah Data",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: [
+                        '#36D399',
+                        '#FFFFFF',
+                        '#F87272'
+                    ],
+                    data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                    maxBarThickness: 6,
+                },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+                interaction: {
+                    intersect: false,
+                    mode: "index",
+                },
+                scales: {
+                    y: {
+                        grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        },
+                        ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 600,
+                        beginAtZero: true,
+                        padding: 15,
+                        font: {
+                            size: 14,
+                            family: "Open Sans",
+                            style: "normal",
+                            lineHeight: 2,
+                        },
+                        color: "#fff",
+                        },
+                    },
+                    x: {
+                        grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        },
+                        ticks: {
+                        display: false,
+                        },
+                    },
+                },
+            },
+        });
+
+        let ctx2 = document.getElementById('chart-pie');
+        new Chart(ctx2, {
+            type: "pie",
+            data: {
+                labels: ["Positive", "Netral", "Negative"],
+                datasets: [
+                    {
+                        label: "Jumlah Sentiment",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                        backgroundColor: [
+                            '#36D399',
+                            '#2A303C',
+                            '#F87272'
+                        ],
+                        data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                        maxBarThickness: 6,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: 'top',
+                    },
+                },
+                interaction: {
+                    intersect: false,
+                    mode: "index",
+                },
+            },
+        });
     </script>
 @endsection

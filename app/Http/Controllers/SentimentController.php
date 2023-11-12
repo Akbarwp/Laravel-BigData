@@ -44,9 +44,18 @@ class SentimentController extends Controller
         ->select('sentiment_analysis.*', 'r.text')
         ->orderBy('r.id', 'asc')->get();
 
+        $sentimen = Sentiment::all();
+        // $sentiment = ['positive' => $positive, 'netral' => $netral, 'negative' => $negative];
+        $sentiment = [
+            'positive' => $sentimen->where('sentiment', 'positif')->count(),
+            'netral' => $sentimen->where('sentiment', 'netral')->count(),
+            'negative' => $sentimen->where('sentiment', 'negatif')->count()
+        ];
+
         return view('dashboard.sentiment.index', [
             "judul" => $judul,
             "data" => $data,
+            "sentiment" => $sentiment,
         ]);
     }
 
@@ -57,8 +66,8 @@ class SentimentController extends Controller
 
         if ($data2 != null) {
             foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->stop_word);
-                $category = $this->sentiment->categories($item->stop_word);
+                $scores = $this->sentiment->score($item->tokenize);
+                $category = $this->sentiment->categories($item->tokenize);
                 if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
                     $category = 'netral';
                 }
@@ -72,8 +81,8 @@ class SentimentController extends Controller
             }
         } else {
             foreach ($data as $item) {
-                $scores = $this->sentiment->score($item->stop_word);
-                $category = $this->sentiment->categories($item->stop_word);
+                $scores = $this->sentiment->score($item->tokenize);
+                $category = $this->sentiment->categories($item->tokenize);
                 if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
                     $category = 'netral';
                 }

@@ -25,7 +25,6 @@ return new class extends Migration
             $table->id();
             $table->text('case_folding')->nullable();
             $table->text('tokenize')->nullable();
-            $table->text('stop_word')->nullable();
             $table->text('stemming')->nullable();
             $table->foreignId('resource_id');
             $table->timestamps();

@@ -48,8 +48,7 @@ class PreprocessingController extends Controller
             $stemming = $stemmer->stem($finalWords);
 
             Preprocessing::where('resource_id', $item->resource_id)->update([
-                'tokenize' => $cleanUsername,
-                'stop_word' => $finalWords,
+                'tokenize' => $finalWords,
                 'stemming' => $stemming,
             ]);
         }

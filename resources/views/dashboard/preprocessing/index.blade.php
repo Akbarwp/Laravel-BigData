@@ -28,7 +28,6 @@
                                     <th scope="col" class="px-4 py-3">No.</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Case Folding</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Tokenize</th>
-                                    <th scope="col" class="px-4 py-3 max-w-xs">Stop Words</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Stemming</th>
                                 </tr>
                             </thead>
@@ -38,7 +37,6 @@
                                         <td class="px-4 py-3">{{ $value+1 }}</td>
                                         <td class="px-4 py-3">{{ $item->case_folding }}</td>
                                         <td class="px-4 py-3">{{ $item->tokenize }}</td>
-                                        <td class="px-4 py-3">{{ $item->stop_word }}</td>
                                         <td class="px-4 py-3">{{ $item->stemming }}</td>
                                     </tr>
                                 @endforeach
