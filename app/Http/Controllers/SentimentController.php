@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Sentiment;
 use Phpml\Metric\Accuracy;
+use Phpml\Metric\ClassificationReport;
 use App\Models\Preprocessing;
 
 class SentimentController extends Controller
@@ -26,9 +27,9 @@ class SentimentController extends Controller
         $scores = $this->sentiment->score($teks);
         $category = $this->sentiment->categories($teks);
 
-        if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
-            $category = 'netral';
-        }
+        // if ($scores['positif'] == 0.333 && $scores['netral'] == 0.333 && $scores['negatif'] == 0.333) {
+        //     $category = 'netral';
+        // }
 
         return view('index', [
             'judul' => $judul,
@@ -53,25 +54,21 @@ class SentimentController extends Controller
             'negative' => $sentimen->where('sentiment', 'negatif')->count()
         ];
 
-        // $actualLabels = [];
-        // $predictedLabels = [];
-        // foreach ($data as $item) {
-        //     $actualLabels[] = $item->label;
+        $actualLabels = [];
+        $predictedLabels = [];
+        foreach ($data as $item) {
+            $actualLabels[] = $item->label;
 
-        //     if ($item->sentiment == "positif") {
-        //         $predictedLabels[] = "positive";
+            if ($item->sentiment == "positif") {
+                $predictedLabels[] = "positive";
 
-        //     } elseif ($item->sentiment == "netral") {
-        //         $predictedLabels[] = "netral";
+            } elseif ($item->sentiment == "netral") {
+                $predictedLabels[] = "netral";
 
-        //     } elseif ($item->sentiment == "negatif") {
-        //         $predictedLabels[] = "negative";
-        //     }
-        // }
-
-        // $akurasi = Accuracy::score($actualLabels, $predictedLabels);
-        // $hasilSama = Accuracy::score($actualLabels, $predictedLabels, false);
-        // dd($akurasi, $hasilSama);
+            } elseif ($item->sentiment == "negatif") {
+                $predictedLabels[] = "negative";
+            }
+        }
 
         return view('dashboard.sentiment.index', [
             "judul" => $judul,

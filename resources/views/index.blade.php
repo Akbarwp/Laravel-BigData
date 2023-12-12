@@ -17,7 +17,7 @@
                 </p>
                 <p class="font-semibold">Scores: </p>
                 <span class="text-success pl-3"><span class="capitalize text-secondary">Positif:</span> {{ $scores['positif'] }}</span>
-                <span class="text-success pl-3"><span class="capitalize text-secondary">Netral:</span> {{ $scores['netral'] }}</span>
+                {{-- <span class="text-success pl-3"><span class="capitalize text-secondary">Netral:</span> {{ $scores['netral'] }}</span> --}}
                 <span class="text-success pl-3"><span class="capitalize text-secondary">Negatif:</span> {{ $scores['negatif'] }}</span>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfussionMatrixController;
 use App\Http\Controllers\PreprocessingController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SentimentController;
@@ -55,5 +56,11 @@ Route::group([
     ], function () {
         Route::get('/', [VectorizerController::class, 'index'])->name('vectorizer.index');
         Route::post('/vectorizer', [VectorizerController::class, 'vectorizer'])->name('vectorizer.vectorizer');
+    });
+
+    Route::group([
+        'prefix' => 'confussionMatrix'
+    ], function () {
+        Route::get('/', [ConfussionMatrixController::class, 'index'])->name('confussionMatrix.index');
     });
 });
