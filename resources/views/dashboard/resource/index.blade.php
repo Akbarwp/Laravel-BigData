@@ -14,10 +14,10 @@
                     <div class="flex justify-end items-center d p-4">
                         <div class="flex space-x-3">
                             <div class="flex space-x-3 items-center">
-                                <label for="add_button" class="btn btn-primary btn-sm text-white dark:text-gray-800 normal-case bg-purple-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-purple-300 dark:hover:bg-opacity-90">
+                                {{-- <label for="add_button" class="btn btn-primary btn-sm text-white dark:text-gray-800 normal-case bg-purple-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-purple-300 dark:hover:bg-opacity-90">
                                     <i class="ri-add-fill"></i>
                                     Tambah {{ $judul }}
-                                </label>
+                                </label> --}}
                             </div>
                             <div class="flex space-x-3 items-center">
                                 <label for="import_button" class="btn btn-success btn-sm text-white dark:text-gray-800 normal-case bg-green-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-green-300 dark:hover:bg-opacity-90">
@@ -39,9 +39,9 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">No.</th>
-                                    <th scope="col" class="px-4 py-3">Acara TV</th>
-                                    <th scope="col" class="px-4 py-3">Jumlah Retweet</th>
-                                    <th scope="col" class="px-4 py-3 max-w-xs">Tweet</th>
+                                    <th scope="col" class="px-4 py-3 max-w-xs">Rating</th>
+                                    <th scope="col" class="px-4 py-3 max-w-xs">Waktu</th>
+                                    <th scope="col" class="px-4 py-3 max-w-xs">Text</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Label</th>
                                     <th scope="col" class="px-4 py-3">Aksi</th>
                                 </tr>
@@ -50,12 +50,12 @@
                                 @foreach ($data as $value => $item)
                                     <tr class="border-b dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $value+1 }}</td>
-                                        <td class="px-4 py-3">{{ $item->acara_tv }}</td>
-                                        <td class="px-4 py-3">{{ $item->jumlah_retweet }}</td>
+                                        <td class="px-4 py-3">{{ $item->rating }}</td>
+                                        <td class="px-4 py-3">{{ $item->waktu }}</td>
                                         <td class="px-4 py-3">{{ $item->text }}</td>
                                         <td class="px-4 py-3">{{ $item->label }}</td>
                                         <td class="px-4 py-3">
-                                            <label for="edit_button" class="btn btn-sm btn-warning text-white" onclick="return edit_button('{{ $item->id }}')">
+                                            <label for="edit_button" class="btn btn-sm btn-warning text-white mb-1" onclick="return edit_button('{{ $item->id }}')">
                                                 <i class="ri-pencil-line"></i>
                                             </label>
                                             <button class="btn btn-sm btn-error text-white" onclick="return delete_button('{{ $item->id }}', '{{ $item->text }}');">
@@ -71,7 +71,7 @@
             </div>
 
             {{-- Form Tambah Data --}}
-            <input type="checkbox" id="add_button" class="modal-toggle" />
+            {{-- <input type="checkbox" id="add_button" class="modal-toggle" />
             <div class="modal">
                 <div class="modal-box">
                     <form action="{{ route('resource.simpan') }}" method="post" enctype="multipart/form-data">
@@ -117,10 +117,10 @@
                     </form>
                 </div>
                 <label class="modal-backdrop" for="add_button">Close</label>
-            </div>
+            </div> --}}
 
             {{-- Form Ubah Data --}}
-            <input type="checkbox" id="edit_button" class="modal-toggle" />
+            {{-- <input type="checkbox" id="edit_button" class="modal-toggle" />
             <div class="modal">
                 <div class="modal-box" id="edit_form">
                     <form action="{{ route('resource.perbarui') }}" method="post" enctype="multipart/form-data">
@@ -170,7 +170,7 @@
                     </form>
                 </div>
                 <label class="modal-backdrop" for="edit_button">Close</label>
-            </div>
+            </div> --}}
 
             {{-- Form Import Data --}}
             <input type="checkbox" id="import_button" class="modal-toggle" />

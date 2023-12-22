@@ -48,14 +48,14 @@ class ResourceController extends Controller
     {
         // validasi
         $validated = $request->validate([
-            'import_data' => 'required|mimes:csv,xls,xlsx'
+            'import_data' => 'required|mimes:xls,xlsx'
         ]);
 
         // Truncate Data
-        Resource::truncate();
-        Preprocessing::truncate();
-        Sentiment::truncate();
         Vectorizer::truncate();
+        Sentiment::truncate();
+        Preprocessing::truncate();
+        Resource::truncate();
 
         // menangkap file excel
         $file = $request->file('import_data');

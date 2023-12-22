@@ -28,7 +28,7 @@
                                     <th scope="col" class="px-4 py-3">No.</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Tweet</th>
                                     <th scope="col" class="px-4 py-3">Positive</th>
-                                    <th scope="col" class="px-4 py-3">Netral</th>
+                                    {{-- <th scope="col" class="px-4 py-3">Netral</th> --}}
                                     <th scope="col" class="px-4 py-3">Negative</th>
                                     <th scope="col" class="px-4 py-3">Sentiment</th>
                                     <th scope="col" class="px-4 py-3">Label</th>
@@ -40,7 +40,7 @@
                                         <td class="px-4 py-3">{{ $value+1 }}</td>
                                         <td class="px-4 py-3">{{ $item->text }}</td>
                                         <td class="px-4 py-3">{{ $item->positive }}</td>
-                                        <td class="px-4 py-3">{{ $item->netral }}</td>
+                                        {{-- <td class="px-4 py-3">{{ $item->netral }}</td> --}}
                                         <td class="px-4 py-3">{{ $item->negative }}</td>
                                         <td class="px-4 py-3">
                                             @if ($item->sentiment == "positif")
@@ -184,6 +184,11 @@
                 cancelButtonText: 'Batal',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Loading",
+                        text: "Sedang dilakukan Analisis",
+                    });
                     $.ajax({
                         type: "post",
                         url: "{{ route('sentimentAnalysis.sentimentAnalysis') }}",
@@ -219,7 +224,8 @@
         new Chart(ctx, {
             type: "bar",
             data: {
-                labels: ["Positive", "Netral", "Negative"],
+                // labels: ["Positive", "Netral", "Negative"],
+                labels: ["Positive", "Negative"],
                 datasets: [
                 {
                     label: "Jumlah Data",
@@ -229,10 +235,11 @@
                     borderSkipped: false,
                     backgroundColor: [
                         '#36D399',
-                        '#FFFFFF',
+                        // '#FFFFFF',
                         '#F87272'
                     ],
-                    data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                    // data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                    data: [{{ $sentiment['positive'] }}, {{ $sentiment['negative'] }}],
                     maxBarThickness: 6,
                 },
                 ],
@@ -290,7 +297,8 @@
         new Chart(ctx2, {
             type: "pie",
             data: {
-                labels: ["Positive", "Netral", "Negative"],
+                // labels: ["Positive", "Netral", "Negative"],
+                labels: ["Positive", "Negative"],
                 datasets: [
                     {
                         label: "Jumlah Sentiment",
@@ -300,10 +308,11 @@
                         borderSkipped: false,
                         backgroundColor: [
                             '#36D399',
-                            '#2A303C',
+                            // '#2A303C',
                             '#F87272'
                         ],
-                        data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                        // data: [{{ $sentiment['positive'] }}, {{ $sentiment['netral'] }}, {{ $sentiment['negative'] }}],
+                        data: [{{ $sentiment['positive'] }}, {{ $sentiment['negative'] }}],
                         maxBarThickness: 6,
                     },
                 ],

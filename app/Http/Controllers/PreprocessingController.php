@@ -44,6 +44,7 @@ class PreprocessingController extends Controller
             $wordsFromSearchString = str_word_count($cleanUsername, true);
             $semiFinalWords = array_diff($wordsFromSearchString, $stopWords3);
             $finalWords = implode(" ", $semiFinalWords);
+            // $finalWords = implode(" ", $wordsFromSearchString);
 
             $stemming = $stemmer->stem($finalWords);
 

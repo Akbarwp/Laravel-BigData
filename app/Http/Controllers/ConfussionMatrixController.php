@@ -72,13 +72,17 @@ class ConfussionMatrixController extends Controller
             }
         }
 
-        $accuracy =  ($TP+$TN)/($TP+$TN+$FP+$FN);
-        $precision =  ($TP)/($TP+$FP);
-        $recall =  ($TP)/($TP+$FN);
-        $specificity =  ($TN)/($TN+$FP);
-        $f1Score =  (2*(($TP)/($TP+$FN))*(($TP)/($TP+$FP))) / ((($TP)/($TP+$FN)) + (($TP)/($TP+$FP)));
+        $accuracy = ($TP+$TN)/($TP+$TN+$FP+$FN);
+        $precision = ($TP)/($TP+$FP);
+        $recall = ($TP)/($TP+$FN);
+        if ($TN == 0 && $FP == 0) {
+            $specificity = 0;
+        } else {
+            $specificity = ($TN)/($TN+$FP);
+        }
+        $f1Score = (2*(($TP)/($TP+$FN))*(($TP)/($TP+$FP))) / ((($TP)/($TP+$FN)) + (($TP)/($TP+$FP)));
 
-        // $akurasi = Accuracy::score($actualLabels, $predictedLabels);
+        // $accuracy = Accuracy::score($actualLabels, $predictedLabels);
         // $hasilSama = Accuracy::score($actualLabels, $predictedLabels, false);
         // $report = new ClassificationReport($actualLabels, $predictedLabels);
 

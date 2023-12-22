@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('resource', function (Blueprint $table) {
             $table->id();
-            $table->string('acara_tv');
-            $table->integer('jumlah_retweet');
+            $table->integer('rating');
+            $table->date('waktu');
             $table->text('text');
             $table->string('label');
             $table->timestamps();

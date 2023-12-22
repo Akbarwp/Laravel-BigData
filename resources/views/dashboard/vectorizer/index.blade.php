@@ -101,6 +101,11 @@
                 cancelButtonText: 'Batal',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Loading",
+                        text: "Sedang dilakukan Vectorizer",
+                    });
                     $.ajax({
                         type: "post",
                         url: "{{ route('vectorizer.vectorizer') }}",

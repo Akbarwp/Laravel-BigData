@@ -105,6 +105,11 @@
                 cancelButtonText: 'Batal',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Loading",
+                        text: "Sedang dilakukan PreProcessing",
+                    });
                     $.ajax({
                         type: "post",
                         url: "{{ route('preprocessing.preprocessing') }}",

@@ -15,8 +15,8 @@ class Resource extends Model
     // protected $keyType = "string";
     public $timestamps = "true";
     protected $fillable = [
-        "acara_tv",
-        "jumlah_retweet",
+        "rating",
+        "waktu",
         "text",
         "label",
     ];

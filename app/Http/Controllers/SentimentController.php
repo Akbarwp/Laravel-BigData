@@ -22,7 +22,9 @@ class SentimentController extends Controller
     public function sentimen()
     {
         $judul = "Dashboard";
-        $teks = "Jalanan ke malino rusak berat, pemerintah perbaiki dong";
+        $teks = "adaptif adil agung ahli ajaib";
+        // $teks = "teror bodoh ambigu agresif ambigu";
+        // $teks = "jalan kemana saja";
 
         $scores = $this->sentiment->score($teks);
         $category = $this->sentiment->categories($teks);
@@ -101,7 +103,7 @@ class SentimentController extends Controller
         //     ]);
         // }
 
-        //? Kalua Tidak Ada Netral
+        //? Kalau Tidak Ada Netral
         foreach ($data as $item) {
             $scores = $this->sentiment->score($item->stemming);
             $category = $this->sentiment->categories($item->stemming);

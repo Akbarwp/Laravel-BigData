@@ -47,28 +47,28 @@
                             <tbody>
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">Accuracy</td>
-                                    <td class="px-4 py-3">{{ round($accuracy, 3) }}</td>
-                                    <td class="px-4 py-3">{{ round($accuracy * 100, 1) . "%" }}</td>
+                                    <td class="px-4 py-3">{{ round($accuracy, 4) }}</td>
+                                    <td class="px-4 py-3">{{ round($accuracy * 100, 2) . "%" }}</td>
                                 </tr>
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">Precision</td>
-                                    <td class="px-4 py-3">{{ round($precision, 3) }}</td>
-                                    <td class="px-4 py-3">{{ round($precision * 100, 1) . "%" }}</td>
+                                    <td class="px-4 py-3">{{ round($precision, 4) }}</td>
+                                    <td class="px-4 py-3">{{ round($precision * 100, 2) . "%" }}</td>
                                 </tr>
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">Recall</td>
-                                    <td class="px-4 py-3">{{ round($recall, 3) }}</td>
-                                    <td class="px-4 py-3">{{ round($recall * 100, 1) . "%" }}</td>
+                                    <td class="px-4 py-3">{{ round($recall, 4) }}</td>
+                                    <td class="px-4 py-3">{{ round($recall * 100, 2) . "%" }}</td>
                                 </tr>
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">Specificity</td>
-                                    <td class="px-4 py-3">{{ round($specificity, 3) }}</td>
-                                    <td class="px-4 py-3">{{ round($specificity * 100, 1) . "%" }}</td>
+                                    <td class="px-4 py-3">{{ round($specificity, 4) }}</td>
+                                    <td class="px-4 py-3">{{ round($specificity * 100, 2) . "%" }}</td>
                                 </tr>
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">F1Score</td>
-                                    <td class="px-4 py-3">{{ round($f1Score, 3) }}</td>
-                                    <td class="px-4 py-3">{{ round($f1Score * 100, 1) . "%" }}</td>
+                                    <td class="px-4 py-3">{{ round($f1Score, 4) }}</td>
+                                    <td class="px-4 py-3">{{ round($f1Score * 100, 2) . "%" }}</td>
                                 </tr>
                             </tbody>
                         </table>
