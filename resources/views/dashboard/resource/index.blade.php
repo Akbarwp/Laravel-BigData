@@ -53,7 +53,13 @@
                                         <td class="px-4 py-3">{{ $item->rating }}</td>
                                         <td class="px-4 py-3">{{ $item->waktu }}</td>
                                         <td class="px-4 py-3">{{ $item->text }}</td>
-                                        <td class="px-4 py-3">{{ $item->label }}</td>
+                                        <td class="px-4 py-3">
+                                            @if ($item->label == "positive")
+                                                <div class="badge badge-success">{{ $item->label }}</div>
+                                            @elseif ($item->label == "negative")
+                                                <div class="badge badge-error">{{ $item->label }}</div>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3">
                                             <label for="edit_button" class="btn btn-sm btn-warning text-white mb-1" onclick="return edit_button('{{ $item->id }}')">
                                                 <i class="ri-pencil-line"></i>

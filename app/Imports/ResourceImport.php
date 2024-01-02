@@ -30,7 +30,7 @@ class ResourceImport implements ToModel, WithStartRow, WithHeadingRow
 
         return new Resource([
             'rating' => $row['rating'],
-            'waktu' => date("Y-m-d", $unix_date),
+            'waktu' => date("Y-m-d H:i:s", $unix_date),
             'text' => $row['ulasan'],
             'label' => $row['sentimen'],
             'created_at' => Carbon::now(),
