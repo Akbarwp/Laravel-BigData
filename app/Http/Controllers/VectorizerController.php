@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Vectorizer;
-use App\Models\Preprocessing;
+use App\Models\Sentiment;
 use Phpml\Tokenization\WhitespaceTokenizer;
 use Phpml\FeatureExtraction\TokenCountVectorizer;
 
@@ -17,31 +17,39 @@ class VectorizerController extends Controller
 
         return view('dashboard.vectorizer.index', [
             'judul' => $judul,
-            'data' => $data,
+            'dataPositive' => $data->where('sentiment', 'positive'),
+            'dataNegative' => $data->where('sentiment', 'negative'),
         ]);
     }
 
     public function vectorizer()
     {
-        $data = Preprocessing::all();
+        $data = Sentiment::join('preprocessing as p', 'p.resource_id', '=', 'sentiment_analysis.resource_id')->select('p.stemming', 'sentiment_analysis.sentiment')->get();
         $sentence = [];
-        foreach ($data as $item) {
-            $sentence[] = $item->stemming;
+        $sentiment = ["positive", 'negative'];
+        foreach ($sentiment as $value) {
+            foreach ($data->where('sentiment', $value) as $item) {
+                $sentence[$value][] = $item->stemming;
+            }
         }
-        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
-        $vectorizer->fit($sentence);
-        $vectorizer->transform($sentence);
 
         Vectorizer::truncate();
 
-        $result = (array) $vectorizer;
-        foreach ($result["\x00Phpml\FeatureExtraction\TokenCountVectorizer\x00frequencies"] as $value => $item) {
-            Vectorizer::insert([
-                'word' => $value,
-                'total' => $item,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+        foreach ($sentiment as $senti) {
+            $bayes = new TokenCountVectorizer(new WhitespaceTokenizer());
+            $bayes->fit($sentence[$senti]);
+            $bayes->transform($sentence[$senti]);
+
+            $resultBayes = (array) $bayes;
+            foreach ($resultBayes["\x00Phpml\FeatureExtraction\TokenCountVectorizer\x00frequencies"] as $value => $item) {
+                Vectorizer::insert([
+                    'word' => $value,
+                    'total' => $item,
+                    'sentiment' => $senti,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
         }
     }
 }

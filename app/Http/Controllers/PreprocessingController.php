@@ -21,10 +21,10 @@ class PreprocessingController extends Controller
 
     public function preprocessing()
     {
-        $linkHttpRegex = "/[a-zA-Z]*[:\/\/]*[A-Za-z0-9\-_]+\.+[A-Za-z0-9\.\/%&=\?\-_]+/i";
-        $linkHttpsRegex = "@(http?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@";
-        $hashtagRegex = "/#\S+\s*/";
-        $usernameRegex = "/(\s+|^)@\S+/";
+        // $linkHttpRegex = "/[a-zA-Z]*[:\/\/]*[A-Za-z0-9\-_]+\.+[A-Za-z0-9\.\/%&=\?\-_]+/i";
+        // $linkHttpsRegex = "@(http?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@";
+        // $hashtagRegex = "/#\S+\s*/";
+        // $usernameRegex = "/(\s+|^)@\S+/";
 
         $stopWords = new StopWords();
         $stopWords = (array) $stopWords->getStopWordsFromLanguage('id');
@@ -36,12 +36,13 @@ class PreprocessingController extends Controller
         $data = Preprocessing::orderBy('resource_id', 'asc')->get();
 
         foreach ($data as $item) {
-            $cleanHashtag = preg_replace($hashtagRegex, "", $item->case_folding);
-            $cleanLink = preg_replace($linkHttpRegex, "", $cleanHashtag);
-            $cleanLinks = preg_replace($linkHttpsRegex, "", $cleanLink);
-            $cleanUsername = preg_replace($usernameRegex, "", $cleanLinks);
+            // $cleanHashtag = preg_replace($hashtagRegex, "", $item->case_folding);
+            // $cleanLink = preg_replace($linkHttpRegex, "", $cleanHashtag);
+            // $cleanLinks = preg_replace($linkHttpsRegex, "", $cleanLink);
+            // $cleanUsername = preg_replace($usernameRegex, "", $cleanLinks);
 
-            $wordsFromSearchString = str_word_count($cleanUsername, true);
+            // $wordsFromSearchString = str_word_count($cleanUsername, true);
+            $wordsFromSearchString = str_word_count($item->case_folding, true);
             $semiFinalWords = array_diff($wordsFromSearchString, $stopWords3);
             $finalWords = implode(" ", $semiFinalWords);
             // $finalWords = implode(" ", $wordsFromSearchString);

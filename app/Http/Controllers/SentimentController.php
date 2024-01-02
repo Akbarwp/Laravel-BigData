@@ -45,43 +45,48 @@ class SentimentController extends Controller
     {
         $judul = "Sentiment Analysis";
         $data = Sentiment::join('resource as r', 'r.id', '=', 'sentiment_analysis.resource_id')
-        ->select('sentiment_analysis.*', 'r.text', 'r.label')
+        ->join('preprocessing as p', 'p.resource_id', '=', 'sentiment_analysis.resource_id')
+        ->select('sentiment_analysis.*', 'p.stemming', 'r.label')
         ->orderBy('r.id', 'asc')->get();
 
         $sentimen = Sentiment::all();
         // $sentiment = ['positive' => $positive, 'netral' => $netral, 'negative' => $negative];
+        $sentimenPositif = $sentimen->where('sentiment', 'positive')->count();
+        $sentimenNegatif = $sentimen->where('sentiment', 'negative')->count();
         $sentiment = [
-            'positive' => $sentimen->where('sentiment', 'positif')->count(),
-            'netral' => $sentimen->where('sentiment', 'netral')->count(),
-            'negative' => $sentimen->where('sentiment', 'negatif')->count()
+            'positive' => $sentimenPositif,
+            // 'netral' => $sentimen->where('sentiment', 'netral')->count(),
+            'negative' => $sentimenNegatif,
         ];
 
-        $actualLabels = [];
-        $predictedLabels = [];
-        foreach ($data as $item) {
-            $actualLabels[] = $item->label;
-
-            if ($item->sentiment == "positif") {
-                $predictedLabels[] = "positive";
-
-            } elseif ($item->sentiment == "netral") {
-                $predictedLabels[] = "netral";
-
-            } elseif ($item->sentiment == "negatif") {
-                $predictedLabels[] = "negative";
-            }
+        if ($sentimen->count() != 0) {
+            $persentasePositif = ($sentimenPositif / $sentimen->count()) * 100;
+            $persentaseNegatif = ($sentimenNegatif / $sentimen->count()) * 100;
+            $persentase = [
+                'positive' => $persentasePositif,
+                'negative' => $persentaseNegatif,
+            ];
+        } else {
+            $persentase = [
+                'positive' => 0,
+                'negative' => 0,
+            ];
         }
 
         return view('dashboard.sentiment.index', [
             "judul" => $judul,
             "data" => $data,
             "sentiment" => $sentiment,
+            "persentase" => $persentase,
         ]);
     }
 
     public function sentimentAnalysis()
     {
         $data = Preprocessing::orderBy('resource_id', 'asc')->get();
+        if ($data[0]->stemming == null) {
+            abort(400);
+        }
         Sentiment::truncate();
 
         //? Kalua Ada Netral
@@ -108,10 +113,16 @@ class SentimentController extends Controller
             $scores = $this->sentiment->score($item->stemming);
             $category = $this->sentiment->categories($item->stemming);
 
+            if ($category == "positif") {
+                $kategori = "positive";
+            } elseif ($category == "negatif") {
+                $kategori = "negative";
+            }
+
             Sentiment::insert([
                 'positive' => $scores['positif'],
                 'negative' => $scores['negatif'],
-                'sentiment' => $category,
+                'sentiment' => $kategori,
                 'resource_id' => $item->resource_id,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

@@ -60,6 +60,7 @@ return new class extends Migration
             $table->id();
             $table->string('word');
             $table->double('total');
+            $table->string('sentiment');
             $table->timestamps();
         });
     }

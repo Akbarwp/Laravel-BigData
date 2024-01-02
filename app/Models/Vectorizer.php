@@ -17,5 +17,6 @@ class Vectorizer extends Model
     protected $fillable = [
         "word",
         "total",
+        "sentiment",
     ];
 }

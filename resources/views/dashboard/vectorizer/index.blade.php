@@ -21,8 +21,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-x-auto p-3">
-                        <table id="tabel_data" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 stripe hover" style="width:100%; padding-top: 1em; padding-bottom: 1em;">
+                    <div class="overflow-x-auto py-3 px-5 flex gap-x-5">
+                        <table id="tabel_data1" class="w-1/2 text-sm text-left text-gray-500 dark:text-gray-400 stripe hover" style="width:100%; padding-top: 1em; padding-bottom: 1em;">
+                            <caption class="text-left text-lg font-semibold text-gray-700 dark:text-gray-300">Sentiment Positive</caption>
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">Word</th>
@@ -30,7 +31,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
+                                @foreach ($dataPositive as $item)
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td class="px-4 py-3">{{ $item->word }}</td>
+                                        <td class="px-4 py-3">{{ $item->total }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <table id="tabel_data2" class="w-1/2 text-sm text-left text-gray-500 dark:text-gray-400 stripe hover" style="width:100%; padding-top: 1em; padding-bottom: 1em;">
+                            <caption class="text-left text-lg font-semibold text-gray-700 dark:text-gray-300">Sentiment Negative</caption>
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Word</th>
+                                    <th scope="col" class="px-4 py-3">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dataNegative as $item)
                                     <tr class="border-b dark:border-gray-700">
                                         <td class="px-4 py-3">{{ $item->word }}</td>
                                         <td class="px-4 py-3">{{ $item->total }}</td>
@@ -48,7 +67,14 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#tabel_data').DataTable({
+            $('#tabel_data1').DataTable({
+                // responsive: true,
+                order: [1],
+            })
+            .columns.adjust()
+            .responsive.recalc();
+
+            $('#tabel_data2').DataTable({
                 // responsive: true,
                 order: [1],
             })

@@ -30,13 +30,10 @@ class ConfussionMatrixController extends Controller
         foreach ($data as $item) {
             $actualLabels[] = $item->label;
 
-            if ($item->sentiment == "positif") {
+            if ($item->sentiment == "positive") {
                 $predictedLabels[] = "positive";
 
-            } elseif ($item->sentiment == "netral") {
-                $predictedLabels[] = "netral";
-
-            } elseif ($item->sentiment == "negatif") {
+            } elseif ($item->sentiment == "negative") {
                 $predictedLabels[] = "negative";
             }
         }
@@ -48,13 +45,10 @@ class ConfussionMatrixController extends Controller
         $TN = 0;
         $temp = "";
         foreach ($data as $item) {
-            if ($item->sentiment == "positif") {
+            if ($item->sentiment == "positive") {
                 $temp = "positive";
 
-            } elseif ($item->sentiment == "netral") {
-                $temp = "netral";
-
-            } elseif ($item->sentiment == "negatif") {
+            } elseif ($item->sentiment == "negative") {
                 $temp = "negative";
             }
 

@@ -41,7 +41,7 @@
                                     <th scope="col" class="px-4 py-3">No.</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Rating</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Waktu</th>
-                                    <th scope="col" class="px-4 py-3 max-w-xs">Text</th>
+                                    <th scope="col" class="px-4 py-3 max-w-xs">Review</th>
                                     <th scope="col" class="px-4 py-3 max-w-xs">Label</th>
                                     <th scope="col" class="px-4 py-3">Aksi</th>
                                 </tr>
