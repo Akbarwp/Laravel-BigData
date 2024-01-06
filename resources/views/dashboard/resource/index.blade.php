@@ -14,10 +14,10 @@
                     <div class="flex justify-end items-center d p-4">
                         <div class="flex space-x-3">
                             <div class="flex space-x-3 items-center">
-                                {{-- <label for="add_button" class="btn btn-primary btn-sm text-white dark:text-gray-800 normal-case bg-purple-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-purple-300 dark:hover:bg-opacity-90">
+                                <label for="add_button" class="btn btn-primary btn-sm text-white dark:text-gray-800 normal-case bg-purple-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-purple-300 dark:hover:bg-opacity-90">
                                     <i class="ri-add-fill"></i>
                                     Tambah {{ $judul }}
-                                </label> --}}
+                                </label>
                             </div>
                             <div class="flex space-x-3 items-center">
                                 <label for="import_button" class="btn btn-success btn-sm text-white dark:text-gray-800 normal-case bg-green-600 hover:bg-opacity-70 hover:border-opacity-70 dark:bg-green-300 dark:hover:bg-opacity-90">
@@ -77,45 +77,59 @@
             </div>
 
             {{-- Form Tambah Data --}}
-            {{-- <input type="checkbox" id="add_button" class="modal-toggle" />
+            <input type="checkbox" id="add_button" class="modal-toggle" />
             <div class="modal">
                 <div class="modal-box">
                     <form action="{{ route('resource.simpan') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <h3 class="font-bold text-lg">Tambah {{ $judul }}</h3>
-                            @csrf
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Acara TV</span>
-                                </label>
-                                <input type="text" name="acara_tv" placeholder="Type here" class="input input-bordered w-full max-w-xs text-gray-800" value="{{ old('acara_tv') }}" required />
-                                <label class="label">
-                                    @error('acara_tv')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
+                        <div class="form-control w-full max-w-xs mb-2">
+                            <label class="label">
+                                <span class="label-text font-semibold">Rating</span>
+                            </label>
+                            <div class="rating">
+                                <input type="radio" name="rating" value="1" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="2" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="3" class="mask mask-star-2 bg-orange-400" checked />
+                                <input type="radio" name="rating" value="4" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="5" class="mask mask-star-2 bg-orange-400" />
+                            </div>
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text font-semibold">Waktu</span>
+                            </label>
+                            <input type="date" name="waktu" class="input input-bordered w-full text-gray-800" value="{{ old('waktu') }}" required />
+                            <label class="label">
+                                @error('waktu')
+                                    <span class="label-text-alt text-error">{{ $message }}</span>
+                                @enderror
+                            </label>
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text font-semibold">Review</span>
+                            </label>
+                            <textarea cols="10" name="text" class="textarea textarea-bordered" placeholder="review here" class="textarea textarea-bordered w-full text-gray-800" required></textarea>
+                            <label class="label">
+                                @error('text')
+                                    <span class="label-text-alt text-error">{{ $message }}</span>
+                                @enderror
+                            </label>
+                        </div>
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text font-semibold">Label</span>
+                            </label>
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">Positif</span>
+                                    <input type="radio" name="label" value="positive" class="radio checked:bg-blue-500" checked />
+                                    <span class="label-text">Negatif</span>
+                                    <input type="radio" name="label" value="negative" class="radio checked:bg-red-500" />
                                 </label>
                             </div>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Jumlah Retweet</span>
-                                </label>
-                                <input type="number" name="jumlah_retweet" placeholder="Type here" class="input input-bordered w-full max-w-xs text-gray-800" value="{{ old('jumlah_retweet') }}" required />
-                                <label class="label">
-                                    @error('jumlah_retweet')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                            </div>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Tweet</span>
-                                </label>
-                                <textarea cols="10" name="text" class="textarea textarea-bordered" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs text-gray-800" required></textarea>
-                                <label class="label">
-                                    @error('text')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                            </div>
+                        </div>
                         <div class="modal-action">
                             <button type="submit" class="btn btn-success">Simpan</button>
                             <label for="add_button" class="btn">Batal</label>
@@ -123,52 +137,67 @@
                     </form>
                 </div>
                 <label class="modal-backdrop" for="add_button">Close</label>
-            </div> --}}
+            </div>
 
             {{-- Form Ubah Data --}}
-            {{-- <input type="checkbox" id="edit_button" class="modal-toggle" />
+            <input type="checkbox" id="edit_button" class="modal-toggle" />
             <div class="modal">
                 <div class="modal-box" id="edit_form">
                     <form action="{{ route('resource.perbarui') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <h3 class="font-bold text-lg">Ubah {{ $judul }}: <span class="text-greenPrimary" id="title_form"><span class="loading loading-dots loading-md"></span></span></h3>
-                            @csrf
-                            <input type="text" name="id" hidden />
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Acara TV</span>
-                                    <span class="label-text-alt" id="loading_edit1"></span>
-                                </label>
-                                <input type="text" name="acara_tv" placeholder="Type here" class="input input-bordered w-full text-gray-800" required />
-                                <label class="label">
-                                    @error('acara_tv')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
+                        <input type="text" name="id" hidden />
+                        <div class="form-control w-full max-w-xs mb-2">
+                            <label class="label">
+                                <span class="label-text font-semibold">Rating</span>
+                                <span class="label-text-alt" id="loading_edit1"></span>
+                            </label>
+                            <div class="rating">
+                                <input type="radio" name="rating" value="1" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="2" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="3" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="4" class="mask mask-star-2 bg-orange-400" />
+                                <input type="radio" name="rating" value="5" class="mask mask-star-2 bg-orange-400" />
+                            </div>
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text font-semibold">Waktu</span>
+                                <span class="label-text-alt" id="loading_edit2"></span>
+                            </label>
+                            <input type="date" name="waktu" class="input input-bordered w-full text-gray-800" value="{{ old('waktu') }}" required />
+                            <label class="label">
+                                @error('waktu')
+                                    <span class="label-text-alt text-error">{{ $message }}</span>
+                                @enderror
+                            </label>
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text font-semibold">Review</span>
+                                <span class="label-text-alt" id="loading_edit3"></span>
+                            </label>
+                            <textarea cols="10" name="text" class="textarea textarea-bordered" placeholder="review here" class="textarea textarea-bordered w-full text-gray-800" required></textarea>
+                            <label class="label">
+                                @error('text')
+                                    <span class="label-text-alt text-error">{{ $message }}</span>
+                                @enderror
+                            </label>
+                        </div>
+                        <div class="form-control w-full max-w-xs">
+                            <label class="label">
+                                <span class="label-text font-semibold">Label</span>
+                                <span class="label-text-alt" id="loading_edit4"></span>
+                            </label>
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">Positif</span>
+                                    <input type="radio" name="label" value="positive" class="radio checked:bg-blue-500" />
+                                    <span class="label-text">Negatif</span>
+                                    <input type="radio" name="label" value="negative" class="radio checked:bg-red-500" />
                                 </label>
                             </div>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Jumlah Retweet</span>
-                                    <span class="label-text-alt" id="loading_edit2"></span>
-                                </label>
-                                <input type="text" name="jumlah_retweet" placeholder="Type here" class="input input-bordered w-full text-gray-800" required />
-                                <label class="label">
-                                    @error('jumlah_retweet')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                            </div>
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Tweet</span>
-                                    <span class="label-text-alt" id="loading_edit3"></span>
-                                </label>
-                                <textarea name="text" class="textarea textarea-bordered" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs overflow-hidden text-gray-800" required></textarea>
-                                <label class="label">
-                                    @error('text')
-                                        <span class="label-text-alt text-error">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                            </div>
+                        </div>
                         <div class="modal-action">
                             <button type="submit" class="btn btn-success">Perbarui</button>
                             <label for="edit_button" class="btn">Batal</label>
@@ -176,7 +205,7 @@
                     </form>
                 </div>
                 <label class="modal-backdrop" for="edit_button">Close</label>
-            </div> --}}
+            </div>
 
             {{-- Form Import Data --}}
             <input type="checkbox" id="import_button" class="modal-toggle" />
@@ -256,6 +285,7 @@
             $("#loading_edit1").html(loading);
             $("#loading_edit2").html(loading);
             $("#loading_edit3").html(loading);
+            $("#loading_edit4").html(loading);
 
             $.ajax({
                 type: "get",
@@ -271,17 +301,19 @@
                         items.push(val);
                     });
 
-                    $("#title_form").html(`${items[1]}`);
+                    $("#title_form").html(`${items[3].substr(0,10)}...`);
                     $("input[name='id']").val(items[0]);
-                    $("input[name='acara_tv']").val(items[1]);
-                    $("input[name='jumlah_retweet']").val(items[2]);
+                    $(`input[name='rating'][value=${items[1]}]`).attr("checked", true);
+                    $("input[name='waktu']").val(items[2]);
                     $("textarea[name='text']").val(items[3]);
+                    $(`input[name='label'][value=${items[4]}]`).attr("checked", true);
 
                     // Loading effect end
                     loading = "";
                     $("#loading_edit1").html(loading);
                     $("#loading_edit2").html(loading);
                     $("#loading_edit3").html(loading);
+                    $("#loading_edit4").html(loading);
                 }
             });
         }

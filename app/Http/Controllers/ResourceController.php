@@ -16,7 +16,7 @@ class ResourceController extends Controller
     public function index()
     {
         $judul = "Resource";
-        $data = Resource::orderBy('id', 'asc')->get();
+        $data = Resource::orderBy('created_at', 'desc')->get();
 
         return view('dashboard.resource.index', [
             "judul" => $judul,
@@ -27,9 +27,10 @@ class ResourceController extends Controller
     public function simpan(Request $request)
     {
         $validated = $request->validate([
-            'acara_tv' => 'required|string',
-            'jumlah_retweet' => 'required|numeric',
+            'rating' => 'required|numeric',
+            'waktu' => 'required|date',
             'text' => 'required|string',
+            'label' => 'required|string',
         ]);
 
         $insert = Resource::create($validated);
@@ -85,15 +86,17 @@ class ResourceController extends Controller
     public function perbarui(Request $request)
     {
         $validated = $request->validate([
-            'acara_tv' => 'required|string',
-            'jumlah_retweet' => 'required|numeric',
+            'rating' => 'required|numeric',
+            'waktu' => 'required|date',
             'text' => 'required|string',
+            'label' => 'required|string',
         ]);
 
         Resource::where('id', $request->id)->update([
-            'acara_tv' => $validated['acara_tv'],
-            'jumlah_retweet' => $validated['jumlah_retweet'],
+            'rating' => $validated['rating'],
+            'waktu' => $validated['waktu'],
             'text' => $validated['text'],
+            'label' => $validated['label'],
         ]);
 
         return redirect('dashboard/resource')->with('berhasil', "Data berhasil diperbarui!");
