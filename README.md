@@ -1,6 +1,6 @@
 # Laravel Big Data
 
-Laravel Big Data is a website designed for sentiment analysis on reviews of the PLN Mobile application. With features like Vectorizer and Confusion Matrix, this site enables users to understand and analyze user sentiments towards the application through structured data. The interactive interface and advanced analysis tools assist users in evaluating the quality of reviews and accurately identifying sentiment trends. The data used was obtained from the Kaggle website related to user reviews of the PLN Mobile application on Google Play. The data used can be accessed at the following link [Kaggle PLN Mobile](https://www.kaggle.com/code/rizkia14/analisis-sentimen-unsupervised-lexical/input?select=review-pln-mobile.csv)
+Laravel Big Data is a website designed for sentiment analysis on reviews of the PLN Mobile application using Naive Bayer method. With features like Vectorizer and Confusion Matrix, this site enables users to understand and analyze user sentiments towards the application through structured data. The interactive interface and advanced analysis tools assist users in evaluating the quality of reviews and accurately identifying sentiment trends. The data used was obtained from the Kaggle website related to user reviews of the PLN Mobile application on Google Play. The data used can be accessed at the following link [Kaggle PLN Mobile](https://www.kaggle.com/code/rizkia14/analisis-sentimen-unsupervised-lexical/input?select=review-pln-mobile.csv)
 
 ## Tech Stack
 
